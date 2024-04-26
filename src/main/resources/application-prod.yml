@@ -1,0 +1,96 @@
+
+# Mysql数据库
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:6952/secmind?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=CTT&nullCatalogMeansCurrent=true
+    username: root
+    password: safe_sh@sec#2024
+  redis:
+    host: localhost
+    port: 6333
+    password: safeSys@sec#2024
+
+#libreoffice文档在线预览配置
+# CentOS 下安装 libreoffice：
+# 安装：yum -y install libreoffice
+# Linux 中文字体乱码解决：
+# 1、上传 C:\Windows\Fonts 下的字体到 /usr/share/font 目录
+# 2、执行命令： chmod 644 /usr/share/fonts/windows/* && fc-cache -fv
+jodconverter:
+  local:
+    #暂时关闭预览，启动时会有点慢
+    enabled: true
+    #设置libreoffice主目录 linux地址如：/usr/lib64/libreoffice
+    #    office-home: C:\Program Files\LibreOffice
+    office-home: /usr/lib/libreoffice
+    #开启多个libreoffice进程，每个端口对应一个进程
+    port-numbers: 8100
+    #libreoffice进程重启前的最大进程数
+    max-tasks-per-process: 100
+
+wechat:
+  cp:
+    corpId: wx50d278b4966d7f58
+    appConfigs:
+      - agentId: 1000066
+        secret: DpvYH_N7WfQtzqiQsX4WAJNU6P-Hhlz2Y5zkcYVe_00
+        token: 111 #（应用中的 “接受消息” 部分的 “接收消息服务器配置” 里的Token值）
+        aesKey: 111 #（应用中的 “接受消息” 部分的 “接收消息服务器配置” 里的EncodingAESKey值）
+  mp:
+    useRedis: false
+    redisConfig:
+      host: 127.0.0.1
+      port: 6333
+      password: safeSys@sec#2024
+      timeout: 3000
+    configs:
+      - appId: wx07d3e2916956f3f9 #第一个公众号
+        secret: b40da685697571339a727b6020aca8a6
+        token: MistIsland2024 # 接口配置里的Token值
+        aesKey: KAJK44jmGmnrYM0vrA05ugWg8yLlo0MoToHKSsRcnj1 # 接口配置里的EncodingAESKey值
+
+# Oracle数据库
+#spring:
+#  datasource:
+#    driver-class-name: oracle.jdbc.OracleDriver
+#    url: jdbc:oracle:thin:@localhost:1521:xe
+#    username: SNOWY-PUB-ORACLE
+#    password: 123456
+
+# SQLServer配置
+#spring:
+#  datasource:
+#    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+#    url: jdbc:sqlserver://localhost:1433;DatabaseName=snowy-pub-mssql
+#    username: sa
+#    password: 123456
+
+# PostgreSQL配置
+#spring:
+#  datasource:
+#    driverClassName: org.postgresql.Driver
+#    url: jdbc:postgresql://127.0.0.1:5432/snowy-pub-postgresql
+#    username: postgres
+#    password: 123456
+
+# 达梦数据库
+#spring:
+#  datasource:
+#    driver-class-name: dm.jdbc.driver.DmDriver
+#    url: jdbc:dm://localhost:5236/snowy-pub-dm
+#    username: SNOWY
+#    password: 123456789
+# #达梦数据库兼容问题，不需要在sql语句前加模式名的解决方法：
+# #https://blog.csdn.net/myth8860/article/details/100557705
+
+# 人大金仓数据库
+#spring:
+#  datasource:
+#    driver-class-name: com.kingbase8.Driver
+#    url: jdbc:kingbase8://localhost:54321/snowy-pub-kingbase
+#    username: SYSTEM
+#    password: 123456
+# #人大金仓数据库兼容问题，不需要加在sql语句中加public的解决方法：
+# #在根目录data下的kingbase.conf文档里面找到search_path = '"$user",PUBLIC,sys_catalog'进行替换放开
+# #重启数据库即可完全兼容，注意 sql中不能出现mysql中的关键字的单引号
